@@ -1,6 +1,6 @@
 # File Tree: beiju.js
 
-**Generated:** 21/04/2026, 12:01:37
+**Generated:** 17/05/2026, 15:15:38
 **Root Path:** `/Users/juniorteixeira/Documents/Eu/Projetos/beiju.js`
 
 ```
@@ -13,28 +13,31 @@
 │   ├── codegen
 │   │   ├── SqlGenerator.test.ts
 │   │   ├── SqlGenerator.ts
-│   │   └── SqlTest.ts
+│   │   └── SqlReview.ts
 │   ├── domain
-│   │   ├── model
-│   │   │   ├── Expr
-│   │   │   │   ├── AggregateExpr.ts
-│   │   │   │   └── WindowFunctionExpr.ts
-│   │   │   ├── clause
-│   │   │   │   ├── SelectQuery.ts
-│   │   │   │   └── WhereClause.ts
-│   │   │   ├── ColumnRef.ts
-│   │   │   ├── FrameSpec.ts
-│   │   │   ├── OrderByItem.ts
-│   │   │   ├── QueryNode.ts
-│   │   │   └── WindowSpec.ts
-│   │   └── ports
-│   │       ├── QueryExecutor.ts
-│   │       └── SqlDialect.ts
+│   │   ├── interfaces
+│   │   │   ├── IQueryExecutor.ts
+│   │   │   ├── IQueryNode.ts
+│   │   │   ├── ISelectionItem.ts
+│   │   │   ├── ISqlCompileResult.ts
+│   │   │   └── ISqlDialect.ts
+│   │   └── model
+│   │       ├── clause
+│   │       │   ├── SelectQuery.ts
+│   │       │   ├── WhereClause.ts
+│   │       │   └── WhereCondition.ts
+│   │       ├── AggregateExpr.ts
+│   │       ├── ColumnRef.ts
+│   │       ├── FrameSpec.ts
+│   │       ├── OrderByItem.ts
+│   │       ├── WindowFunctionExpr.ts
+│   │       └── WindowSpec.ts
 │   ├── infrastructure
 │   │   └── adapters
 │   │       ├── PgAdapter.ts
 │   │       └── PostgreSqlDialect.ts
 │   └── index.ts
+├── # File Tree: beiju.md
 ├── .gitignore
 ├── README.md
 ├── package-lock.json

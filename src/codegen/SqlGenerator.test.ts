@@ -9,14 +9,6 @@ export function columRefParamns(column: string, type: any, table?: string ): Col
   return new ColumnRef(column, type, table);
 }
 
-/*readonly from: { table: string; alias?: string },
-    readonly select: SelectionItem[],
-    readonly where?: WhereClause,
-    readonly groupBy?: ColumnRef[],
-    readonly orderBy?: OrderByItem[],
-    readonly limit?: number,
-    readonly offset?: number,*/
-
 describe('SqlGenerator', () => {
   it('gera SELECT simples com WHERE', () => {
     const query = {

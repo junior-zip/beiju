@@ -9,7 +9,6 @@ export class ColumnRef<T extends SqlType = SqlType> {
     readonly table?: string
   ){}
 
-  
   public toSql(): string {
     return this.table ? `${this.table}.${this.column}` : this.column
   }
