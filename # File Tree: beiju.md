@@ -1,41 +1,54 @@
 # File Tree: beiju.js
 
-**Generated:** 17/05/2026, 15:15:38
+**Generated:** 25/05/2026, 23:50:56
 **Root Path:** `/Users/juniorteixeira/Documents/Eu/Projetos/beiju.js`
 
 ```
 ├── src
 │   ├── application
-│   │   └── builders
-│   │       ├── SelectBuilder.ts
-│   │       ├── WhereBuilder.ts
-│   │       └── WindowBuilder.ts
+│   │   ├── builders
+│   │   │   ├── AggExprBuilder.ts
+│   │   │   ├── SelectBuilder.ts
+│   │   │   ├── WhereBuilder.ts
+│   │   │   ├── WindowBuilder.ts
+│   │   │   └── WindowFnExprBuilder.ts
+│   │   ├── ColumnContext.ts
+│   │   ├── WhereColumnRef.ts
+│   │   └── WhereContext.ts
 │   ├── codegen
-│   │   ├── SqlGenerator.test.ts
 │   │   ├── SqlGenerator.ts
 │   │   └── SqlReview.ts
 │   ├── domain
 │   │   ├── interfaces
+│   │   │   ├── IBuilder.ts
 │   │   │   ├── IQueryExecutor.ts
 │   │   │   ├── IQueryNode.ts
+│   │   │   ├── ISelectBuilder.ts
 │   │   │   ├── ISelectionItem.ts
 │   │   │   ├── ISqlCompileResult.ts
-│   │   │   └── ISqlDialect.ts
+│   │   │   ├── ISqlDialect.ts
+│   │   │   ├── IWhereBuilder.ts
+│   │   │   └── IWindowBuilder.ts
 │   │   └── model
 │   │       ├── clause
 │   │       │   ├── SelectQuery.ts
 │   │       │   ├── WhereClause.ts
 │   │       │   └── WhereCondition.ts
-│   │       ├── AggregateExpr.ts
+│   │       ├── expr
+│   │       │   ├── AggregateExpr.ts
+│   │       │   └── WindowFunctionExpr.ts
 │   │       ├── ColumnRef.ts
 │   │       ├── FrameSpec.ts
 │   │       ├── OrderByItem.ts
-│   │       ├── WindowFunctionExpr.ts
 │   │       └── WindowSpec.ts
 │   ├── infrastructure
 │   │   └── adapters
 │   │       ├── PgAdapter.ts
 │   │       └── PostgreSqlDialect.ts
+│   ├── test
+│   │   ├── application
+│   │   └── codegen
+│   │       └── SqlGenerator.test.ts
 │   └── index.ts
 ├── # File Tree: beiju.md
 ├── .gitignore
