@@ -1,4 +1,4 @@
-export type SqlType = 'number' | 'string' | 'date' | 'boolean'
+import { SqlType } from "../types/SqlType.js"
 
 export class ColumnRef<T extends SqlType = SqlType> {
   readonly kind = 'ColumnRef' as const

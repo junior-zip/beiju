@@ -1,11 +1,10 @@
-// application/builders/ColumnContext.ts
-import { ColumnRef, SqlType } from '../domain/model/ColumnRef.js'
-import { AggFn } from '../domain/model/expr/AggregateExpr.js'
+import { ColumnRef } from '../domain/model/ColumnRef.js'
+import { SqlType } from '../domain/types/SqlType.js'
+import { AggFnType } from '../domain/types/AggFnType.js'
 import { AggExprBuilder } from './builders/AggExprBuilder.js'
 import { WindowFnExprBuilder } from './builders/WindowFnExprBuilder.js'
 
 export class ColumnContext {
-  // --- Referência simples ---
 
   col(name: string, table?: string): ColumnRef {
     return new ColumnRef(name, 'string', table)
@@ -13,7 +12,7 @@ export class ColumnContext {
 
   // --- Agregações ---
 
-  private agg(fn: AggFn, column: string, type: SqlType = 'number'): AggExprBuilder {
+  private agg(fn: AggFnType, column: string, type: SqlType = 'number'): AggExprBuilder {
     return new AggExprBuilder(fn, new ColumnRef(column, type))
   }
 

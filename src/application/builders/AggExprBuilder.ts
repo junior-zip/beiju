@@ -1,5 +1,6 @@
 import { WindowSpec } from "../../domain/model/WindowSpec.js"
-import { AggFn, AggregateExpr } from "../../domain/model/expr/AggregateExpr.js"
+import { AggregateExpr } from "../../domain/model/expr/AggregateExpr.js"
+import { AggFnType } from "../../domain/types/AggFnType.js"
 import { ColumnRef } from "../../domain/model/ColumnRef.js"
 import { WindowBuilderFn, WindowBuilder } from "./WindowBuilder.js"
 
@@ -8,7 +9,7 @@ export class AggExprBuilder {
   private windowSpec?: WindowSpec
 
   constructor(
-    private readonly fn: AggFn,
+    private readonly fn: AggFnType,
     private readonly column: ColumnRef,
   ) {}
 

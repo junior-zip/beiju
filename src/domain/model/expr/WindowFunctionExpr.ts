@@ -1,13 +1,13 @@
-import { ColumnRef, SqlType } from '../ColumnRef.js'
+import { ColumnRef} from '../ColumnRef.js'
+import { SqlType } from '../../types/SqlType.js'
 import { WindowSpec } from '../WindowSpec.js'
-
-export type WindowFn = 'ROW_NUMBER' | 'RANK' | 'DENSE_RANK' | 'LAG' | 'LEAD' | 'NTILE'
+import { WindowFnType } from '../../types/WindowFnType.js'
 
 export class WindowFunctionExpr<T extends SqlType = SqlType> {
   readonly kind = 'WindowFunctionExpr' as const
 
   constructor(
-    readonly fn: WindowFn,
+    readonly fn: WindowFnType,
     readonly window: WindowSpec,
     readonly column?: ColumnRef<T>,
     readonly offset?: number,
