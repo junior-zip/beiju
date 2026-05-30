@@ -1,5 +1,6 @@
-import { ColumnRef, SqlType } from '../../domain/model/ColumnRef.js'
-import { WindowFunctionExpr, WindowFn } from '../../domain/model/expr/WindowFunctionExpr.js'
+import { ColumnRef } from '../../domain/model/ColumnRef.js'
+import { WindowFunctionExpr } from '../../domain/model/expr/WindowFunctionExpr.js'
+import { WindowFnType } from '../../domain/types/WindowFnType.js'
 import { WindowSpec } from '../../domain/model/WindowSpec.js'
 import { WindowBuilder } from './WindowBuilder.js'
 import { WindowBuilderFn } from './WindowBuilder.js'
@@ -9,7 +10,7 @@ export class WindowFnExprBuilder {
   private windowSpec?: WindowSpec
 
   constructor(
-    private readonly fn: WindowFn,
+    private readonly fn: WindowFnType,
     private readonly column?: ColumnRef,
     private readonly offset?: number,
   ) {}

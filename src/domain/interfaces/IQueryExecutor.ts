@@ -1,9 +1,9 @@
-export interface QueryResult<T> {
+export interface IQueryResult<T> {
   readonly rows: T[]
   readonly rowCount: number
 }
 
 export interface IQueryExecutor {
-  execute<T>(sql: string, params: unknown[]): Promise<QueryResult<T>>
+  execute<T>(sql: string, params: unknown[]): Promise<IQueryResult<T>>
   close(): Promise<void>
 }

@@ -5,7 +5,7 @@ import type { WindowSpec } from '../domain/model/WindowSpec.js'
 import type { OrderByItem} from '../domain/model/OrderByItem.js'
 import type { FrameBoundary, FrameSpec } from '../domain/model/FrameSpec.js'
 import type { SelectQuery } from '../domain/model/clause/SelectQuery.js'
-import { SelectionItem } from '../domain/interfaces/ISelectionItem.js'
+import { SelectionItemType } from '../domain/types/SelectionItemType.js'
 import type { WhereClause } from '../domain/model/clause/WhereClause.js'
 import { WhereCondition } from '../domain/model/clause/WhereCondition.js'
 import { ISqlCompileResult } from '../domain/interfaces/ISqlCompileResult.js'
@@ -50,7 +50,7 @@ export class SqlGenerator {
     }
   }
 
-  private static compileSelection(item: SelectionItem): string {
+  private static compileSelection(item: SelectionItemType): string {
     if (item.kind === 'ColumnRef') {
       return SqlGenerator.compileColumn(item)
     }

@@ -2,12 +2,12 @@
 import { ColumnRef } from '../ColumnRef.js'
 import { WhereClause } from './WhereClause.js'
 import { OrderByItem } from '../OrderByItem.js' 
-import { SelectionItem } from '../../interfaces/ISelectionItem.js';
+import { SelectionItemType } from '../../types/SelectionItemType.js';
 
 export class SelectQuery {
   constructor(
     readonly from: { table: string; alias?: string },
-    readonly select: SelectionItem[],
+    readonly select: SelectionItemType[],
     readonly where?: WhereClause,
     readonly groupBy?: ColumnRef[],
     readonly orderBy?: OrderByItem[],

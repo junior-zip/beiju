@@ -1,13 +1,5 @@
-export type QueryNodeKind =
-  | 'SelectQuery'
-  | 'ColumnRef'
-  | 'AggregateExpr'
-  | 'WindowSpec'
-  | 'WindowFunctionExpr'
-  | 'WhereClause'
-  | 'OrderByItem'
-  | 'FrameSpec'
+import { QueryNodeKindType } from "../types/QueryNodeKindType.js"
 
 export interface IQueryNode {
-  readonly kind: QueryNodeKind
+  readonly kind: QueryNodeKindType
 }

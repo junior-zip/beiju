@@ -1,5 +1,5 @@
-// application/builders/SelectBuilder.ts
 import type { IQueryExecutor } from '../../domain/interfaces/IQueryExecutor.js'
+import { SelectionItemType } from '../../domain/types/SelectionItemType.js'
 import { ColumnRef } from '../../domain/model/ColumnRef.js'
 import { SelectQuery } from '../../domain/model/clause/SelectQuery.js'
 import { WhereClause } from '../../domain/model/clause/WhereClause.js'
@@ -17,7 +17,7 @@ export type WhereFn  = (c: WhereContext) => WhereCondition | WhereCondition[] | 
 
 export class SelectBuilder implements ISelectBuilder {
   private fromClause?: { table: string; alias?: string }
-  private selections: ReturnType<SelectQuery['select']['values']> extends ArrayIterator<infer T> ? T[] : any[] = [];
+  private selections: SelectionItemType[] = [];
   private whereClause?: WhereClause
   private groupByColumns: ColumnRef[] = []
   private orderByItems: OrderByItem[] = []

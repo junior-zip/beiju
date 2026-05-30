@@ -1,14 +1,14 @@
 // domain/model/AggregateExpr.ts
-import { ColumnRef, SqlType } from '../ColumnRef.js'
+import { ColumnRef } from '../ColumnRef.js'
+import { SqlType } from '../../types/SqlType.js'
 import { WindowSpec } from '../WindowSpec.js'
-
-export type AggFn = 'SUM' | 'AVG' | 'COUNT' | 'MIN' | 'MAX'
+import { AggFnType } from '../../types/AggFnType.js'
 
 export class AggregateExpr<T extends SqlType = SqlType> {
   readonly kind = 'AggregateExpr' as const
 
   constructor(
-    readonly fn: AggFn,
+    readonly fn: AggFnType,
     readonly column: ColumnRef<T>,
     readonly alias?: string,
     readonly window?: WindowSpec,
