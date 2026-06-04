@@ -1,7 +1,7 @@
 import { ColumnRef } from '../../domain/model/ColumnRef.js'
 import { WhereClause } from '../../domain/model/clause/WhereClause.js'
 import { WhereCondition } from '../../domain/model/clause/WhereCondition.js'
-import { IWhereBuilder } from '../../domain/interfaces/IWhereBuilder.js'
+import { IWhereBuilder } from '../../domain/interfaces/builder/IWhereBuilder.js'
 
 export class WhereBuilder implements IWhereBuilder {
   private conditions: WhereCondition[] = []

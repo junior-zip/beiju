@@ -10,7 +10,7 @@ import { WindowFnExprBuilder } from './WindowFnExprBuilder.js'
 import { AggExprBuilder } from './AggExprBuilder.js'
 import {ColumnContext, BuildableSelectionItem } from '../ColumnContext.js'
 import { WhereContext } from '../WhereContext.js'
-import { ISelectBuilder } from '../../domain/interfaces/ISelectBuilder.js'
+import { ISelectBuilder } from '../../domain/interfaces/builder/ISelectBuilder.js'
 
 export type SelectFn = (c: ColumnContext) => BuildableSelectionItem[]
 export type WhereFn  = (c: WhereContext) => WhereCondition | WhereCondition[] | WhereClause
@@ -100,7 +100,7 @@ export class SelectBuilder implements ISelectBuilder {
     )
   }
 
-  async fetch<T>(): Promise<T[]> {
+  async fetch<T extends Record<string, any> = any>(): Promise<T[]> {
     const query = this.build()
     const { sql, params } = SqlGenerator.compile(query)
     const result = await this.executor.execute<T>(sql, params)

@@ -2,7 +2,7 @@ import { ColumnRef } from '../../domain/model/ColumnRef.js'
 import { FrameSpec } from '../../domain/model/FrameSpec.js'
 import { WindowSpec } from '../../domain/model/WindowSpec.js'
 import { OrderByItem } from '../../domain/model/OrderByItem.js'
-import { IWindowBuilder } from '../../domain/interfaces/IWindowBuilder.js'
+import { IWindowBuilder } from '../../domain/interfaces/builder/IWindowBuilder.js'
 export type FrameBoundary = number | 'unbounded' | 'current'
 
 export type WindowBuilderFn = (w: WindowBuilder) => WindowBuilder

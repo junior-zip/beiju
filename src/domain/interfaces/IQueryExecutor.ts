@@ -4,6 +4,9 @@ export interface IQueryResult<T> {
 }
 
 export interface IQueryExecutor {
-  execute<T>(sql: string, params: unknown[]): Promise<IQueryResult<T>>
+  execute<T extends Record<string, any> = any>(
+    sql: string, 
+    params: unknown[]
+  ): Promise<IQueryResult<T>>;
   close(): Promise<void>
 }

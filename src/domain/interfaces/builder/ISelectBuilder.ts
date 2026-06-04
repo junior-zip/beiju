@@ -1,8 +1,8 @@
 // application/builders/SelectBuilder.ts
-import type { IBuilder } from '../../domain/interfaces/IBuilder.js'
-import { SelectQuery } from '../../domain/model/clause/SelectQuery.js'
-import { SelectFn } from '../../application/builders/SelectBuilder.js'
-import { WhereFn } from '../../application/builders/SelectBuilder.js'
+import type { IBuilder } from './IBuilder.js' 
+import { SelectQuery } from '../../model/clause/SelectQuery.js'
+import { SelectFn } from '../../../application/builders/SelectBuilder.js'
+import { WhereFn } from '../../../application/builders/SelectBuilder.js'
 
 export interface ISelectBuilder extends IBuilder<SelectQuery> {
   from(table: string, alias?: string): this
@@ -12,6 +12,5 @@ export interface ISelectBuilder extends IBuilder<SelectQuery> {
   orderBy(column: string, direction?: 'ASC' | 'DESC'): this
   limit(n: number): this
   offset(n: number): this
-  fetch<T>(): Promise<T[]>
-
+  fetch<T extends Record<string, any> = any>(): Promise<T[]>;
 }
