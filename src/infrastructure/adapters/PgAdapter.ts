@@ -4,10 +4,6 @@ import type { TableSchema, ColumnSchema } from '../../domain/interfaces/IDataSou
 import type { QueryResult } from '../../domain/ports/QueryExecutor.js'
 import { QueryResultRow } from 'pg'
 
-/**
- * Mapeamento dos tipos do PostgreSQL para os tipos internos do Beiju.
- * Fonte: https://www.postgresql.org/docs/current/datatype.html
- */
 const PG_TYPE_MAP: Record<string, ColumnSchema['type']> = {
   integer:          'number',
   int4:             'number',
@@ -58,8 +54,6 @@ export class PgAdapter implements IDataSourceAdapter {
   private static instances: Map<string, PgAdapter> = new Map()
 
   private readonly pool: Pool
-
-   //  PgAdapter.getInstance() para obter a instância.
    
   private constructor(connectionString: string) {
     this.pool = new Pool({ connectionString })
@@ -68,11 +62,6 @@ export class PgAdapter implements IDataSourceAdapter {
       console.error('[PgAdapter] Erro inesperado no pool de conexões:', err)
     })
   }
-
-  /**
-   * Retorna a instância existente para essa connection string,
-   * ou cria uma nova se ainda não existir.
-   */
 
   static getInstance(connectionString: string): PgAdapter {
     if (!PgAdapter.instances.has(connectionString)) {
@@ -97,7 +86,6 @@ export class PgAdapter implements IDataSourceAdapter {
         rowCount: result.rowCount ?? 0,
       }
     } finally {
-      // Libera o cliente de volta ao pool em qualquer caso (sucesso ou erro)
       client.release()
     }
   }
@@ -143,10 +131,6 @@ export class PgAdapter implements IDataSourceAdapter {
     }
   }
 
-  /**
-   * Encerra o pool de conexões.
-   * Deve ser chamado no shutdown da aplicação.
-   */
   async close(): Promise<void> {
     await this.pool.end()
     PgAdapter.instances.delete(

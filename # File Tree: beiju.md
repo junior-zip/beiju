@@ -1,6 +1,6 @@
 # File Tree: beiju.js
 
-**Generated:** 02/06/2026, 15:28:08
+**Generated:** 06/06/2026, 15:36:31
 **Root Path:** `/Users/juniorteixeira/Documents/Eu/Projetos/beiju.js`
 
 ```
@@ -55,6 +55,7 @@
 │   │       └── WindowFnType.ts
 │   ├── infrastructure
 │   │   └── adapters
+│   │       ├── CsvAdapter.ts
 │   │       └── PgAdapter.ts
 │   ├── semantic
 │   │   ├── builder

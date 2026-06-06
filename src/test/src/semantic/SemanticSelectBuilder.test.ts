@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { beforeEach, describe, it, expect, vi } from 'vitest'
 import { SemanticSelectBuilder } from '../../../semantic/builder/SemanticSelectBuilder.js'
 import { Table } from '../../../semantic/Table.js' 
 import { TypedColumn } from '../../../semantic/TypedColumn.js' 
@@ -25,6 +25,11 @@ const mockSchema = {
 const table = new Table('orders', mockSchema, mockAdapter)
 
 describe('SemanticSelectBuilder', () => {
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
   it('gera SQL de SELECT simples com coluna tipada', async () => {
     await table.select([table.seller_name as TypedColumn])
       .fetch()
@@ -67,19 +72,17 @@ describe('SemanticSelectBuilder', () => {
     )
   })
 
-  it('gera SQL com RANK e OVER', async () => {
-    const totalAmount = table.total_amount as TypedColumn
+    it("gera SQL com RANK e OVER", async () => {
+      const totalAmount = table.total_amount as TypedColumn;
 
-    await table
-      .select([
-        totalAmount.sum().as('total_vendas'),
-        totalAmount,
-      ])
-      .fetch()
+      await table
+        .select([totalAmount.sum().as("total_vendas"), totalAmount])
+        .fetch();
 
-    // Valida que o adapter foi chamado — SQL verificado no SqlGenerator.test.ts
-    expect(mockAdapter.execute).toHaveBeenCalledOnce()
-  })
+      // Valida que o adapter foi chamado — SQL verificado no SqlGenerator.test.ts
+      expect(mockAdapter.execute).toHaveBeenCalledOnce();
+    });
+   
 
   it('respeita LIMIT e OFFSET', async () => {
     await table
@@ -112,4 +115,5 @@ describe('SemanticSelectBuilder', () => {
       []
     )
   })
+
 })
