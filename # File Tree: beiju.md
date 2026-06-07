@@ -1,7 +1,7 @@
 # File Tree: beiju.js
 
 **Generated:** 07/06/2026, 01:40:59
-**Root Path:** `/Users/juniorteixeira/Documents/Eu/Projetos/beiju.js`
+**Root Path:** `<repo-root>`
 
 ```
 ├── .github
