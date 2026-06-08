@@ -22,7 +22,9 @@ const mockSchema = {
   ],
 }
 
-const table = new Table('orders', mockSchema, mockAdapter)
+const table = new Table('orders', mockSchema, mockAdapter,{
+  select: (t, items) => new SemanticSelectBuilder(t, items, t.adapter)
+})
 
 describe('SemanticSelectBuilder', () => {
 

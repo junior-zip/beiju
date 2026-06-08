@@ -1,7 +1,6 @@
-import { SemanticSelectBuilder } from '../builders/semantic/SemanticSelectBuilder.js' 
 import type { IDataSourceAdapter, TableSchema } from '../core/interfaces/IDataSourceAdapter.js' 
 import { TypedColumn } from './TypedColumn.js'
-
+type QueryFactory = (table: Table, items: any[]) => any;
 /**
  * Representa uma tabela/arquivo com schema conhecido.
  * As colunas são acessíveis como propriedades do objeto.
@@ -18,7 +17,11 @@ export class Table {
   constructor(
     readonly tableName: string,
     readonly schema: TableSchema,
-    private readonly adapter: IDataSourceAdapter,
+    readonly adapter: IDataSourceAdapter,
+    private readonly factories: { 
+      select: (table: Table, items: any[]) => any 
+      // update?: (table: Table, data: any) => any
+    }
   ) {
     // Registra cada coluna do schema como propriedade do objeto
     for (const col of schema.columns) {
@@ -26,8 +29,8 @@ export class Table {
     }
   }
   
-  select(items: any[]): SemanticSelectBuilder {
-    return new SemanticSelectBuilder(this, items, this.adapter)
+  select(items: any[]) {
+    return this.factories.select(this, items)
   }
   
 }

@@ -1,6 +1,6 @@
 import { PgAdapter } from '../infrastructure/adapters/PgAdapter.js'
-//import { CsvAdapter } from '../infrastructure/adapters/CsvAdapter.js'
 import type { IDataSourceAdapter } from '../core/interfaces/IDataSourceAdapter.js' 
+import { SemanticSelectBuilder } from '@builders/semantic/SemanticSelectBuilder.js'
 import { Table } from './Table.js' 
 /**
  * Ponto de entrada do Beiju.
@@ -41,6 +41,15 @@ export class AnalyticsContext {
    */
   async table(name: string): Promise<Table> {
     const schema = await this.adapter.introspect(name)
-    return new Table(name, schema, this.adapter)
+    
+    // 💡 INVERSÃO DE CONTROLE: Criamos a Table passando as funções que geram os builders.
+    // Assim, a Table ganha o método .select() sem precisar importar a classe SemanticSelectBuilder.
+    return new Table(name, schema, this.adapter, {
+      select: (t, items) => new SemanticSelectBuilder(t, items, t.adapter),
+      
+      // Quando você for implementar o resto, bastará adicionar aqui:
+      // update: (t, data) => new SemanticUpdateBuilder(t, data, t.adapter),
+      // delete: (t, filter) => new SemanticDeleteBuilder(t, filter, t.adapter)
+    })
   }
 }
