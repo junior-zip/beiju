@@ -24,9 +24,9 @@ export class AnalyticsContext {
         return PgAdapter.getInstance(cs);
     
     }
-   throw new Error(
+    throw new Error(
       `AnalyticsContext: protocolo não suportado em "${cs}".\n` +
-      `Protocolos aceitos: postgresql://`
+      `Protocolos aceitos: postgresql://, postgres://`
     )
   }
 }
