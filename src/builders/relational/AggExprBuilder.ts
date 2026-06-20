@@ -10,8 +10,8 @@ export class AggExprBuilder {
   constructor(
     private readonly fn: AggFnType,
     private readonly column: AggColumn,
-    private alias?:     string,
-    private windowSpec?:     WindowSpec,
+    private alias?: string,
+    private windowSpec?: WindowSpec,
   ) {}
 
   as(alias: string): this {
@@ -27,6 +27,6 @@ export class AggExprBuilder {
   }
 
   build(): AggregateExpr {
-    return new AggregateExpr(this.fn, this.column as any, this.alias, this.windowSpec)
+    return new AggregateExpr(this.fn, this.column, this.alias, this.windowSpec)
   }
 }
