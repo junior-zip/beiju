@@ -227,10 +227,6 @@ export class SqlGenerator {
       )
       .join(" AND ");
 
-    const returnJoin = join.type
-      ? `${join.type} JOIN ${tableRef} ON ${conditions}`
-      : `JOIN ${tableRef} ON ${conditions}`;
-
-    return returnJoin;
+      return `${join.type} JOIN ${tableRef} ON ${conditions}`
   }
 }

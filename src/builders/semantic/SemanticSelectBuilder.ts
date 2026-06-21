@@ -26,30 +26,6 @@ export type WhereInput =
   | WhereCondition[]
   | WhereClause
 
-/**
- * Builder de consultas analíticas orientado a semântica.
- * Construído sobre o SelectQuery e SqlGenerator existentes,
- * mas expõe uma API onde colunas são objetos, não strings.
- *
- * Criado internamente pelo Table.select() — não instancie diretamente.
- *
- * Exemplo:
- *   const orders = await ctx.table('orders')
- *
- *   const result = await orders
- *     .select([
- *       orders.seller_name,
- *       orders.total_amount.sum().as('total_vendas'),
- *       rank()
- *         .over(w => w.orderBy(orders.total_amount.name, 'DESC'))
- *         .as('ranking'),
- *     ])
- *     .where(orders.month.eq('2026-01'))
- *     .groupBy(orders.seller_name)
- *     .orderBy(orders.total_amount, 'DESC')
- *     .limit(10)
- *     .fetch()
- */
 export class SemanticSelectBuilder implements ISemanticSelectBuilder {
   private whereInput?: WhereInput
   private groupByColumns: ColumnRef[] = []
@@ -111,6 +87,9 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
   return new JoinBuilder(table, (spec) => this.addJoin(spec), 'RIGHT')
   }
 
+  fullOuterJoin(table: Table): JoinBuilder<this> {
+  return new JoinBuilder(table,(spec) => this.addJoin(spec), 'FULL OUTER',)
+  }
 
   private resolveSelections(): SelectQuery['select'] {
     return this.selections.map(item => {
@@ -120,10 +99,6 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
     })
   }
 
-  /**
-   * Resolve o WhereInput para WhereClause da AST.
-   * Aceita condição única, array de condições ou WhereClause direta.
-   */
   private resolveWhere(): SelectQuery['where'] {
     if (!this.whereInput) return undefined
 

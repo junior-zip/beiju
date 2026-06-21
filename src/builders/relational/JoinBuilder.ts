@@ -23,23 +23,11 @@ export class JoinBuilder<TBuilder> {
     private readonly joinType?:   JoinType,
   ) {}
 
-  /**
-   * Define o alias SQL da tabela joined.
-   * Exemplo: .innerJoin(usuarios).as('u').on(vendas.usuario_id, ...)
-   */
   as(alias: string): this {
     this.aliasValue = alias
     return this
   }
 
-  /**
-   * Define a condição ON e finaliza o JOIN,
-   * devolvendo o builder pai para encadeamento.
-   *
-   * Suporta múltiplas condições:
-   *   .on(vendas.usuario_id, usuarios.id)
-   *   .on(vendas.regiao_id,  usuarios.regiao_id) ← segunda condição AND
-   */
   on(left: TypedColumn, right: TypedColumn): TBuilder {
     this.conditions.push(new JoinCondition(left.ref, right.ref))
     

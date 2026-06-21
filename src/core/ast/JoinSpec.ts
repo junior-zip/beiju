@@ -1,11 +1,7 @@
 import { ColumnRef } from '../ColumnRef.js'
 
-export type JoinType = 'INNER' | 'LEFT' | 'RIGHT' | 'JOIN';
+export type JoinType = 'INNER' | 'LEFT' | 'RIGHT' | 'JOIN' | 'FULL OUTER';
 
-/**
- * Condição atômica de junção.
- * Representa: tabela_a.coluna = tabela_b.coluna
- */
 export class JoinCondition {
   constructor(
     readonly left:  ColumnRef,
