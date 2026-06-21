@@ -6,6 +6,7 @@ import { WindowFnExprBuilder } from './builders/relational/WindowFnExprBuilder.j
 import { ColumnRef } from '@core/ColumnRef.js'; 
 import { AggExprBuilder } from '@builders/relational/AggExprBuilder.js';
 import { TypedColumn } from './semantic/TypedColumn.js';
+import { or, and } from '@core/ast/clause/WhereClause.js';
 
 export const lag = (col: string | AggExprBuilder, offset = 1) => {
     const columnExpr = col instanceof AggExprBuilder
@@ -44,3 +45,14 @@ export { PgAdapter }from './infrastructure/adapters/PgAdapter.js'
 export type { IQueryExecutor } from './core/interfaces/IQueryExecutor.js'
 export type { IQueryResult }   from './core/interfaces/IQueryExecutor.js'
 export type { IRawQueryCheck } from './core/interfaces/IRawQueryCheck.js'
+
+// ─── Aliases em português — Window Functions ──────────────────────────────
+export const classificar = rank
+export const classificarDenso = denseRank
+export const numeroDaLinha = rowNumber
+export const anterior = lag
+export const proximo = lead
+//export const grupo = ntile
+export const media = avg
+export const ou = or
+export const e = and

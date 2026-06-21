@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { AnalyticsContext } from '@semantic/AnalyticsContext.js'
-import type { TypedColumn } from '@semantic/TypedColumn.js'
 import 'dotenv/config'
 
 const CONNECTION_STRING = process.env.DB_STRING_CONNECTION

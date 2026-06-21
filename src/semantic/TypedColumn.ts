@@ -12,41 +12,109 @@ import { WhereCondition } from '../core/ast/clause/WhereCondition.js'
  * Em vez de: c.col('seller_name', 'o')
  * Você usa:  orders.seller_name
  */
+
 export class TypedColumn<T extends SqlType = SqlType> {
-  readonly ref: ColumnRef<T>
+  readonly ref: ColumnRef<T>;
 
   constructor(
     readonly name: string,
     readonly type: T,
     readonly table?: string,
   ) {
-    this.ref = new ColumnRef(name, type, table)
+    this.ref = new ColumnRef(name, type, table);
   }
 
-  // Alias visual — não muda o SQL, só documenta a intenção
   as(alias: string): AliasedColumn<T> {
-    return new AliasedColumn(this.name, this.type, alias, this.table)
+    return new AliasedColumn(this.name, this.type, alias, this.table);
   }
 
-  // Agregações — disponíveis diretamente na coluna
-  sum(): AggExprBuilder  { return new AggExprBuilder('SUM', this.ref) }
-  avg(): AggExprBuilder  { return new AggExprBuilder('AVG', this.ref) }
-  count(): AggExprBuilder { return new AggExprBuilder('COUNT', this.ref) }
-  min(): AggExprBuilder  { return new AggExprBuilder('MIN', this.ref) }
-  max(): AggExprBuilder  { return new AggExprBuilder('MAX', this.ref) }
+  sum(): AggExprBuilder {
+    return new AggExprBuilder("SUM", this.ref);
+  }
+  avg(): AggExprBuilder {
+    return new AggExprBuilder("AVG", this.ref);
+  }
+  count(): AggExprBuilder {
+    return new AggExprBuilder("COUNT", this.ref);
+  }
+  min(): AggExprBuilder {
+    return new AggExprBuilder("MIN", this.ref);
+  }
+  max(): AggExprBuilder {
+    return new AggExprBuilder("MAX", this.ref);
+  }
 
-  // Condições WHERE — direto na coluna
-  eq(value: unknown): WhereCondition    { return new WhereCondition(this.ref, '=', value) }
-  neq(value: unknown): WhereCondition   { return new WhereCondition(this.ref, '!=', value) }
-  gt(value: unknown): WhereCondition    { return new WhereCondition(this.ref, '>', value) }
-  lt(value: unknown): WhereCondition    { return new WhereCondition(this.ref, '<', value) }
-  gte(value: unknown): WhereCondition   { return new WhereCondition(this.ref, '>=', value) }
-  lte(value: unknown): WhereCondition   { return new WhereCondition(this.ref, '<=', value) }
+  eq(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, "=", value);
+  }
+  neq(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, "!=", value);
+  }
+  gt(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, ">", value);
+  }
+  lt(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, "<", value);
+  }
+  gte(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, ">=", value);
+  }
+  lte(value: unknown): WhereCondition {
+    return new WhereCondition(this.ref, "<=", value);
+  }
   between(a: unknown, b: unknown): WhereCondition {
-    return new WhereCondition(this.ref, 'BETWEEN', [a, b])
+    return new WhereCondition(this.ref, "BETWEEN", [a, b]);
   }
   in(values: unknown[]): WhereCondition {
-    return new WhereCondition(this.ref, 'IN', values)
+    return new WhereCondition(this.ref, "IN", values);
+  }
+
+  // ─── Alias em português — Agregações ────────────────────────────────────
+  soma(): AggExprBuilder {
+    return this.sum();
+  }
+  media(): AggExprBuilder {
+    return this.avg();
+  }
+  contar(): AggExprBuilder {
+    return this.count();
+  }
+  minimo(): AggExprBuilder {
+    return this.min();
+  }
+  maximo(): AggExprBuilder {
+    return this.max();
+  }
+
+  // --- Condições WHERE ───────────────────────────────
+  igual(value: unknown): WhereCondition {
+    return this.eq(value);
+  }
+  diferente(value: unknown): WhereCondition {
+    return this.neq(value);
+  }
+  maiorQue(value: unknown): WhereCondition {
+    return this.gt(value);
+  }
+  menorQue(value: unknown): WhereCondition {
+    return this.lt(value);
+  }
+  maiorOuIgual(value: unknown): WhereCondition {
+    return this.gte(value);
+  }
+  menorOuIgual(value: unknown): WhereCondition {
+    return this.lte(value);
+  }
+  entre(a: unknown, b: unknown): WhereCondition {
+    return this.between(a, b);
+  }
+  dentroDe(values: unknown[]): WhereCondition {
+    return this.in(values);
+  }
+
+  //Alias de coluna
+  como(alias: string): AliasedColumn {
+    return this.as(alias);
   }
 }
 

@@ -81,6 +81,11 @@ export class SelectBuilder implements ISelectBuilder {
     return this
   }
 
+   // ─── Alias em português  ─────────────────────────────────────
+    selecione(items: SelectFn): this {
+    return this.select(items)
+    }
+
   build(): SelectQuery {
     if (!this.fromClause) {
       throw new Error('SelectBuilder: .from() é obrigatório')

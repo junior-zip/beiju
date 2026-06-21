@@ -15,4 +15,15 @@ export interface ISemanticSelectBuilder {
   leftJoin(table: Table): JoinBuilder<this>
   rightJoin(table: Table): JoinBuilder<this>
   fullOuterJoin(table: Table): JoinBuilder<this> 
+  onde(input: unknown): this
+  agrupePor(...columns: unknown[]): this
+  ordenePor(column: unknown, direction?: 'ASC' | 'DESC'): this
+  limite(n: number): this
+  offset(n: number): this
+  juncaoInterna(table: Table): JoinBuilder<this>
+  junte(table: Table): JoinBuilder<this>
+  juncaoEsquerda(table: Table): JoinBuilder<this>
+  juncaoDireita(table: Table): JoinBuilder<this>
+  juncaoExterna(table: Table): JoinBuilder<this> 
+  buscar()
 }

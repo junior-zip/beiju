@@ -15,18 +15,27 @@ export class AggExprBuilder {
   ) {}
 
   as(alias: string): this {
-    this.alias = alias
-    return this
+    this.alias = alias;
+    return this;
   }
 
   over(fn: WindowBuilderFn): this {
-    const wb = new WindowBuilder()
-    fn(wb)
-    this.windowSpec = wb.build()
-    return this
+    const wb = new WindowBuilder();
+    fn(wb);
+    this.windowSpec = wb.build();
+    return this;
+  }
+
+  // ─── Alias em português —
+  como(alias: string): this {
+    return this.as(alias);
+  }
+
+  sobre(fn: WindowBuilderFn): this {
+    return this.over(fn);
   }
 
   build(): AggregateExpr {
-    return new AggregateExpr(this.fn, this.column, this.alias, this.windowSpec)
+    return new AggregateExpr(this.fn, this.column, this.alias, this.windowSpec);
   }
 }

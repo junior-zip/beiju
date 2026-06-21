@@ -28,6 +28,16 @@ export class WindowFnExprBuilder {
     return this
   }
 
+  // ─── Alias em português — em ambas as classes ─────────────────────────────
+  como(alias: string): this {
+    return this.as(alias)
+  }
+
+  // (em WindowFnExprBuilder também)
+  sobre(fn: WindowBuilderFn): this {
+    return this.over(fn)
+  }
+
   build(): WindowFunctionExpr {
     if (!this.windowSpec) {
       throw new Error(

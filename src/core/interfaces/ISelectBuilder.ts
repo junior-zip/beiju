@@ -12,4 +12,5 @@ export interface ISelectBuilder extends IBuilder<SelectQuery> {
   limit(n: number): this
   offset(n: number): this
   fetch<T extends Record<string, any> = any>(): Promise<T[]>;
+  selecione(fn: SelectFn): this
 }

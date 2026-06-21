@@ -43,6 +43,12 @@ export class Table {
     }
     return this._builderFactory(this, items)
   }
+
+  selecione(items: SemanticSelectionItem[]) {
+    return this.select(items)
+  }  
+  
+
 }
   
 export function createTable(

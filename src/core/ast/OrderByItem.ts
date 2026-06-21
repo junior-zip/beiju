@@ -11,3 +11,12 @@ export class OrderByItem {
     readonly direction: 'ASC' | 'DESC' = 'ASC'
   ) {}
 }
+
+export function resolveOrderByExpr(
+  column: { ref: ColumnRef } | { build: () => AggregateExpr },
+): OrderByExpr {
+  if ('build' in column && typeof column.build === 'function') {
+    return column.build()
+  }
+  return (column as { ref: ColumnRef }).ref
+}
