@@ -1,42 +1,10 @@
 import { Pool, type PoolConfig } from 'pg'
 import type { IDataSourceAdapter } from '../../core/interfaces/IDataSourceAdapter.js' 
 import type { TableSchema, ColumnSchema } from '../../core/interfaces/IDataSourceAdapter.js' 
-import type { QueryResult } from '../../core/interfaces/QueryExecutor.js'
+import type { IQueryResult } from '@core/interfaces/IQueryExecutor.js' 
 import { QueryResultRow } from 'pg'
+import { PG_TYPE_MAP } from '@infrastructure/PgTypeMap.js'
 
-const PG_TYPE_MAP: Record<string, ColumnSchema['type']> = {
-  integer:          'number',
-  int4:             'number',
-  int8:             'number',
-  bigint:           'number',
-  smallint:         'number',
-  numeric:          'number',
-  decimal:          'number',
-  real:             'number',
-  float4:           'number',
-  float8:           'number',
-  'double precision': 'number',
-
-  text:             'string',
-  varchar:          'string',
-  'character varying': 'string',
-  char:             'string',
-  bpchar:           'string',
-  uuid:             'string',
-
-  date:             'date',
-  timestamp:        'date',
-  timestamptz:      'date',
-  'timestamp without time zone': 'date',
-  'timestamp with time zone':    'date',
-
-  bool:             'boolean',
-  boolean:          'boolean',
-}
-
-/**
- * Linha retornada pela consulta ao information_schema.columns
- */
 interface InformationSchemaRow {
   column_name: string
   data_type: string
@@ -62,7 +30,6 @@ export class PgAdapter implements IDataSourceAdapter {
       console.error('[PgAdapter] Erro inesperado no pool de conexões:', err)
     })
   }
-
   static getInstance(connectionString: string): PgAdapter {
     if (!PgAdapter.instances.has(connectionString)) {
       PgAdapter.instances.set(connectionString, new PgAdapter(connectionString))
@@ -76,7 +43,7 @@ export class PgAdapter implements IDataSourceAdapter {
    * @param sql    — string SQL com placeholders ($1, $2, ...)
    * @param params — valores correspondentes aos placeholders
    */
-  async execute<T extends QueryResultRow>(sql: string, params: unknown[]): Promise<QueryResult<T>> {
+  async execute<T extends QueryResultRow>(sql: string, params: unknown[]): Promise<IQueryResult<T>> {
     const client = await this.pool.connect()
 
     try {
@@ -89,6 +56,22 @@ export class PgAdapter implements IDataSourceAdapter {
       client.release()
     }
   }
+
+  async executeRaw<T = any>(
+  sql: string,
+  params: unknown[] = [],
+): Promise<IQueryResult<T>> {
+  const client = await this.pool.connect()
+  try {
+    const result = await client.query(sql, params as any[])
+    return {
+      rows: result.rows,
+      rowCount: result.rowCount ?? 0,
+    }
+  } finally {
+    client.release()
+  }
+}
 
   /**
    * Introspecta o schema de uma tabela consultando o information_schema.

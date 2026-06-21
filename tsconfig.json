@@ -3,7 +3,7 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -18,7 +18,9 @@
       "@codegen/*":        ["./src/codegen/*"],
       "@semantic/*":       ["./src/semantic/*"],
       "@infrastructure/*": ["./src/infrastructure/*"]
-    }
+    },
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts"]
 }

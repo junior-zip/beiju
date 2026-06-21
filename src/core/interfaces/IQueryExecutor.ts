@@ -8,5 +8,8 @@ export interface IQueryExecutor {
     sql: string, 
     params: unknown[]
   ): Promise<IQueryResult<T>>;
+
+  executeRaw<T = any>(sql: string, params?: unknown[]): Promise<IQueryResult<T>>
+
   close(): Promise<void>
-}
+} 

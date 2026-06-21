@@ -4,17 +4,9 @@ import { SemanticSelectBuilder } from '@builders/semantic/SemanticSelectBuilder.
 import { Table } from './Table.js' 
 import { TypedColumn } from './TypedColumn.js'
 import { createTable } from './Table.js'
-/**
- * Ponto de entrada do Beiju.
- * Recebe uma connection string e instancia o adapter correto.
- *
- * Exemplos de connection string:
- *   postgresql://user:pass@localhost:5432/mydb
- *   csv://./data/orders.csv
- *   parquet://./data/orders.parquet
- */
+
 export class AnalyticsContext {
-  private readonly adapter: IDataSourceAdapter
+  readonly adapter: IDataSourceAdapter
 
   constructor(connectionString: string) {
     this.adapter = AnalyticsContext.resolveAdapter(connectionString)
@@ -22,7 +14,9 @@ export class AnalyticsContext {
   async table(name: string): Promise<Table & Record<string, TypedColumn>> {
     const schema = await this.adapter.introspect(name)
     
-    return createTable(name, schema, this.adapter)
+    return createTable(name, schema, this.adapter, (t, items) =>
+      new SemanticSelectBuilder(t, items, t.adapter)
+    )
   }
 
   private static resolveAdapter(cs: string): IDataSourceAdapter {
@@ -30,6 +24,9 @@ export class AnalyticsContext {
         return PgAdapter.getInstance(cs);
     
     }
-    throw new Error(`AnalyticsContext: protocolo não suportado em "${cs}".\n` )
+    throw new Error(
+      `AnalyticsContext: protocolo não suportado em "${cs}".\n` +
+      `Protocolos aceitos: postgresql://, postgres://`
+    )
   }
 }

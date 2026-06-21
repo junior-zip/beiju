@@ -4,6 +4,7 @@ import { WindowFnType } from '@core/types/WindowFnType.js'
 import { WindowSpec } from '@core/ast/WindowSpec.js' 
 import { WindowBuilder } from './WindowBuilder.js'
 import { WindowBuilderFn } from './WindowBuilder.js'
+import { WindowFnColumn } from '@core/ast/expr/WindowFunctionExpr.js'
 
 export class WindowFnExprBuilder {
   private alias?: string
@@ -11,7 +12,7 @@ export class WindowFnExprBuilder {
 
   constructor(
     private readonly fn: WindowFnType,
-    private readonly column?: ColumnRef,
+    private readonly column?: WindowFnColumn,
     private readonly offset?: number,
   ) {}
 

@@ -4,13 +4,14 @@ import { AggFnType } from "@core/types/AggFnType.js"
 import { ColumnRef } from "@core/ColumnRef.js" 
 import { WindowBuilderFn, WindowBuilder } from "./WindowBuilder.js"
 
-export class AggExprBuilder {
-  private alias?: string
-  private windowSpec?: WindowSpec
+export type AggColumn = ColumnRef | AggregateExpr
 
+export class AggExprBuilder {
   constructor(
     private readonly fn: AggFnType,
-    private readonly column: ColumnRef,
+    private readonly column: AggColumn,
+    private alias?: string,
+    private windowSpec?: WindowSpec,
   ) {}
 
   as(alias: string): this {

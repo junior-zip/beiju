@@ -1,10 +1,13 @@
 import { ColumnRef } from "../ColumnRef.js" 
+import { AggregateExpr } from "./expr/AggregateExpr.js"
+
+export type OrderByExpr = ColumnRef | AggregateExpr
 
 export class OrderByItem {
   readonly kind = 'OrderByItem' as const
 
   constructor(
-    readonly column: ColumnRef,
-    readonly direction: 'ASC' | 'DESC' = 'ASC',
+    readonly expr: OrderByExpr,
+    readonly direction: 'ASC' | 'DESC' = 'ASC'
   ) {}
 }

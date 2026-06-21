@@ -1,4 +1,3 @@
-// domain/model/SelectQuery.ts
 import { ColumnRef } from '../../ColumnRef.js'; 
 import { WhereClause } from './WhereClause.js'
 import { OrderByItem } from '../OrderByItem.js';

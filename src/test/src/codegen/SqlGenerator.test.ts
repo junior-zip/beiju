@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-
 import { ColumnRef, ColumnRef as columnRef } from '@core/ColumnRef.js';
 import { SqlGenerator } from '@codegen/SqlGenerator.js'; 
+import { OrderByExpr } from '@core/ast/OrderByItem.js';
+import { AggregateExpr } from '@core/ast/expr/AggregateExpr.js';
 
 export function columRefParamns(column: string, type: any, table?: string ): ColumnRef{
 
@@ -51,6 +52,7 @@ describe('SqlGenerator', () => {
   })
 
   it('gera SELECT com Window Function RANK e LAG', () => {
+
     const query = {
       from: { table: 'orders', alias: 'o'},
       select: [
@@ -62,7 +64,7 @@ describe('SqlGenerator', () => {
             orderBy: [
               {
                 kind: 'OrderByItem' as const,
-                column: new columnRef('total_amount', 'number', 'o'),
+                expr: new columnRef('total_amount', 'number', 'o'),
                 direction: 'DESC' as const,
               },
             ],
@@ -79,7 +81,7 @@ describe('SqlGenerator', () => {
             orderBy: [
               {
                 kind: 'OrderByItem' as const,
-                column: new columnRef('month', 'string', 'o'),
+                expr: new columnRef('month', 'number', 'o'),
                 direction: 'ASC' as const,
               },
             ],
@@ -92,7 +94,7 @@ describe('SqlGenerator', () => {
     const compiled = SqlGenerator.compile(query)
 
     expect(compiled).toEqual({
-      sql: 'SELECT RANK() OVER (ORDER BY o.total_amount DESC) AS ranking, LAG(o.total_amount, 1) OVER (ORDER BY o.month ASC) AS prev_month FROM orders AS o',
+      sql: 'SELECT RANK() OVER (ORDER BY o.total_amount DESC) AS ranking, LAG(o.total_amount, 1, 1) OVER (ORDER BY o.month ASC) AS prev_month FROM orders AS o',
       params: [],
     })
   })
@@ -110,7 +112,7 @@ describe('SqlGenerator', () => {
             orderBy: [
               {
                 kind: 'OrderByItem' as const,
-                column: new columnRef('total_amount', 'number', 'o'),
+                expr: new columnRef('total_amount', 'number', 'o'), 
                 direction: 'DESC' as const,
               },
             ],
@@ -127,4 +129,14 @@ describe('SqlGenerator', () => {
       params: [],
     })
   })
+
+  it("compila agregação duplamente aninhada corretamente", () => {
+    const nested = new AggregateExpr(
+      "AVG",
+      new AggregateExpr("SUM", new ColumnRef("total", "number", "vendas")),
+    );
+
+    const sql = (SqlGenerator as any).compileAggregate(nested);
+    expect(sql).toBe("AVG(SUM(vendas.total))");
+  });
 })

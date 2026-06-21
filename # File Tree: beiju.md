@@ -1,7 +1,7 @@
 # File Tree: beiju.js
 
-**Generated:** 07/06/2026, 01:40:59
-**Root Path:** `<repo-root>`
+**Generated:** 19/06/2026, 00:33:52
+**Root Path:** `<repo/private>`
 
 ```
 ├── .github
@@ -11,6 +11,7 @@
 │   ├── builders
 │   │   ├── relational
 │   │   │   ├── AggExprBuilder.ts
+│   │   │   ├── JoinBuilder.ts
 │   │   │   ├── SelectBuilder.ts
 │   │   │   ├── WhereBuilder.ts
 │   │   │   ├── WindowBuilder.ts
@@ -29,19 +30,23 @@
 │   │   │   │   ├── AggregateExpr.ts
 │   │   │   │   └── WindowFunctionExpr.ts
 │   │   │   ├── FrameSpec.ts
+│   │   │   ├── JoinSpec.ts
 │   │   │   ├── OrderByItem.ts
 │   │   │   └── WindowSpec.ts
+│   │   ├── decorators
+│   │   │   └── RawSql.ts
 │   │   ├── interfaces
 │   │   │   ├── IBuilder.ts
 │   │   │   ├── IDataSourceAdapter.ts
 │   │   │   ├── IQueryExecutor.ts
 │   │   │   ├── IQueryNode.ts
+│   │   │   ├── IRawQueryCheck.ts
 │   │   │   ├── ISelectBuilder.ts
+│   │   │   ├── ISemanticSelectBuilder.ts
 │   │   │   ├── ISqlCompileResult.ts
 │   │   │   ├── ISqlDialect.ts
 │   │   │   ├── IWhereBuilder.ts
-│   │   │   ├── IWindowBuilder.ts
-│   │   │   └── QueryExecutor.ts
+│   │   │   └── IWindowBuilder.ts
 │   │   ├── types
 │   │   │   ├── AggFnType.ts
 │   │   │   ├── QueryNodeKindType.ts
@@ -51,9 +56,10 @@
 │   │   │   └── WindowFnType.ts
 │   │   └── ColumnRef.ts
 │   ├── infrastructure
-│   │   └── adapters
-│   │       ├── CsvAdapter.ts
-│   │       └── PgAdapter.ts
+│   │   ├── adapters
+│   │   │   ├── CsvAdapter.ts
+│   │   │   └── PgAdapter.ts
+│   │   └── PgTypeMap.ts
 │   ├── semantic
 │   │   ├── AnalyticsContext.ts
 │   │   ├── ColumnContext.ts
@@ -66,12 +72,20 @@
 │   │   └── src
 │   │       ├── builders
 │   │       │   └── semantic
+│   │       │       ├── JoinBuilder.test.ts
 │   │       │       └── SemanticSelectBuilder.test.ts
 │   │       ├── codegen
 │   │       │   └── SqlGenerator.test.ts
+│   │       ├── core
+│   │       │   └── decorators
+│   │       │       └── RawSql.test.ts
 │   │       └── infrastructure
 │   │           └── adapters
 │   │               └── PgAdapter.test.ts
+│   ├── usecases
+│   │   ├── queryBuilderBenchmarking.ts
+│   │   ├── rawSqlBase.ts
+│   │   └── rawSqlEQueryBuilderBenchmarking.ts
 │   └── index.ts
 ├── # File Tree: beiju.md
 ├── .gitignore

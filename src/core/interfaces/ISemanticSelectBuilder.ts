@@ -1,5 +1,7 @@
 import { JoinBuilder } from "@builders/relational/JoinBuilder.js"
 import { Table } from "@semantic/Table.js"
+import { SelectQuery } from "@core/ast/clause/SelectQuery.js"
+
 /**
  * Contrato mínimo do SemanticSelectBuilder.
  * Usado como tipo de retorno da SelectBuilderFactory em Table.ts
@@ -7,6 +9,7 @@ import { Table } from "@semantic/Table.js"
  */
 export interface ISemanticSelectBuilder {
   fetch<T>(): Promise<T[]>
+  build(): SelectQuery 
   where(input: unknown): this
   groupBy(...columns: unknown[]): this
   orderBy(column: unknown, direction?: 'ASC' | 'DESC'): this

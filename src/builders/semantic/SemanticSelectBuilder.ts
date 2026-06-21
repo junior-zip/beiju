@@ -14,19 +14,13 @@ import { Table } from '../../semantic/Table.js'
 import { JoinSpec } from '@core/ast/JoinSpec.js'
 import { JoinBuilder } from '@builders/relational/JoinBuilder.js'
 import { ISemanticSelectBuilder } from '@core/interfaces/ISemanticSelectBuilder.js'
-/**
- * Tipos aceitos no .select() do SemanticSelectBuilder.
- * O dev passa colunas, agregações ou window functions — sem strings.
- */
+
 export type SemanticSelectionItem =
   | TypedColumn
   | AliasedColumn
   | AggExprBuilder
   | WindowFnExprBuilder
 
-/**
- * Tipos aceitos no .where() do SemanticSelectBuilder.
- */
 export type WhereInput =
   | WhereCondition
   | WhereCondition[]
@@ -70,8 +64,6 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
     private readonly selections: SemanticSelectionItem[],
     private readonly adapter: IDataSourceAdapter,
   ) {}
-
-  // --- Cláusulas encadeáveis ---
 
   where(input: WhereInput): this {
     this.whereInput = input
@@ -124,7 +116,7 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
     return this.selections.map(item => {
       if (item instanceof AggExprBuilder)     return item.build()
       if (item instanceof WindowFnExprBuilder) return item.build()
-      return item.ref  // TypedColumn → ColumnRef
+      return item.ref
     })
   }
 
@@ -135,7 +127,6 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
   private resolveWhere(): SelectQuery['where'] {
     if (!this.whereInput) return undefined
 
-    // Importação inline para evitar dependência circular
     if (this.whereInput instanceof WhereClause) {
       return this.whereInput
     }
@@ -144,7 +135,6 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
       return new WhereClause(this.whereInput, 'AND')
     }
 
-    // Condição única — envolve em WhereClause automaticamente
     return new WhereClause([this.whereInput], 'AND')
   }
 
@@ -161,7 +151,6 @@ export class SemanticSelectBuilder implements ISemanticSelectBuilder {
     )
   }
 
-  // Compila para SQL, executa no adapter e retorna os resultados tipados.
   async fetch<T>(): Promise<T[]> {
     const query = this.build()
     const { sql, params } = SqlGenerator.compile(query)

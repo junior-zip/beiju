@@ -3,6 +3,7 @@ import { FrameSpec } from '@core/ast/FrameSpec.js'
 import { WindowSpec } from '@core/ast/WindowSpec.js' 
 import { OrderByItem } from '@core/ast/OrderByItem.js' 
 import { IWindowBuilder } from '@core/interfaces/IWindowBuilder.js' 
+import { AggExprBuilder } from './AggExprBuilder.js' 
 export type FrameBoundary = number | 'unbounded' | 'current'
 
 export type WindowBuilderFn = (w: WindowBuilder) => WindowBuilder
@@ -17,11 +18,13 @@ export class WindowBuilder implements IWindowBuilder {
     return this
   }
 
-  orderBy(column: string, direction: 'ASC' | 'DESC' = 'ASC'): this {
-    this.orderByItems.push(
-      new OrderByItem(new ColumnRef(column, 'string'), direction)
-    )
-    return this
+  orderBy(column: string | AggExprBuilder, direction: 'ASC' | 'DESC' = 'ASC'): this {
+    const expr = column instanceof AggExprBuilder
+    ? column.build()                          // AggregateExpr
+    : new ColumnRef(column, 'string')         // ColumnRef
+
+  this.orderByItems.push(new OrderByItem(expr, direction))
+  return this
   }
 
   rowsBetween(start: FrameBoundary, end: FrameBoundary): this {
