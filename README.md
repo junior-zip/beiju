@@ -5,7 +5,7 @@
  
 **Beiju** | [Leia em Português 🇧🇷](./README.pt-br.md)
 
-**Beiju-site** | **[beiju-dev.github.io/beiju-site](https://beiju-dev.github.io/beiju-site/)**
+**Beiju-site** | (demo) | **[beiju-dev.github.io/beiju-site](https://beiju-dev.github.io/beiju-site/)**
 
 
 **An analytical query builder for Node.js, with a Semantic Layer and bilingual API (English / Portuguese).**
@@ -40,7 +40,7 @@ Beiju closes that gap with a **Semantic Layer**: instead of writing `SELECT`, `W
 ## Installation
  
 ```bash
-npm install beiju
+npm install @beiju-dev/beiju
 ```
  
 > Requires Node.js 20+ and PostgreSQL.
@@ -52,7 +52,7 @@ npm install beiju
 ### English API
  
 ```typescript
-import { AnalyticsContext, rank } from 'beiju'
+import { AnalyticsContext, rank } from '@beiju-dev/beiju'
  
 const ctx = new AnalyticsContext('postgresql://user:pass@localhost:5432/mydb')
 const vendas = await ctx.table('vendas')
@@ -76,7 +76,7 @@ const result = await vendas
 A mesma biblioteca, o mesmo motor, vocabulário localizado:
  
 ```typescript
-import { AnalyticsContext, classificar } from 'beiju'
+import { AnalyticsContext, classificar } from '@beiju-dev/beiju'
  
 const ctx = new AnalyticsContext('postgresql://user:pass@localhost:5432/mydb')
 const vendas = await ctx.table('vendas')
@@ -108,6 +108,9 @@ Both forms produce the exact same SQL. Pick whichever vocabulary fits your team,
 - **Automatic schema introspection**: no manual table mapping, columns are typed and autocompletable out of the box
 - **`@RawSql` escape hatch**: drop down to native SQL when needed, sharing the same connection and parameter-binding safety
 - **Portuguese aliases**: every method in the Semantic Layer has a Portuguese equivalent
+
+---
+
 ## Architecture
  
 Beiju is built in four layers, following Hexagonal Architecture and Domain-Driven Design:
@@ -132,9 +135,11 @@ Beiju was developed as an undergraduate thesis (TCC) project at **Instituto Fede
 ---
  
 ## Contributing
- 
+
 Beiju is open source and contributions are welcome, whether that's a bug report, a new adapter, additional Window Functions, or improvements to the Portuguese vocabulary. Feel free to open an issue to discuss an idea before submitting a pull request.
- 
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) · [CONTRIBUINDO.md](./CONTRIBUINDO.md)
+
 If you're using Beiju in a real project or experimenting with it for study purposes, we'd love to hear about it.
  
 ---
