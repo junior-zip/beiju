@@ -5,6 +5,8 @@
  
 **Beiju** | [Leia em Português 🇧🇷](./README.pt-br.md)
 
+**Beiju-site** | **[beiju-dev.github.io/beiju-site](https://beiju-dev.github.io/beiju-site/)**
+
 
 **An analytical query builder for Node.js, with a Semantic Layer and bilingual API (English / Portuguese).**
  
