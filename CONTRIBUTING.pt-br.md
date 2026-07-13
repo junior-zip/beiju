@@ -26,7 +26,7 @@ Antes de tudo, obrigado pelo interesse em contribuir! O Beiju é um query builde
  
 ```bash
 # Clone o repositório
-git clone https://github.com/junior-zip/beiju.git
+git clone https://github.com/beiju-dev/beiju.git
 cd beiju
  
 # Instale as dependências
